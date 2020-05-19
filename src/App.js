@@ -1,37 +1,21 @@
 import React, { Component } from 'react';
-import AddTodo from "./components/AddTodo";
-import TodoList from "./components/TodoList";
+import { BrowserRouter, Route } from "react-router-dom";
+import Navbar from './components/Navbar'
+import Home from "./components/Home"
+import About from './components/About'
+import Todo from "./components/Todo";
+
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      todos: []
-    }
-  }
-
-  //expecting an string
-  add = (content) => {
-    const todos = [...this.state.todos];
-    const todo = { id: todos.length + 1, content };
-    todos.push(todo);
-    this.setState({ todos });
-  }
-  delete = (id) => {
-    const todos = this.state.todos.filter(
-      (todo) => {
-        return (todo.id !== id);
-      }
-    )
-    this.setState({ todos });
-  }
-
   render() {
     return (
       <div className="container">
-        <h4>Welcome to todo list app!</h4>
-        <TodoList todos={this.state.todos} deleteTodo={this.delete} />
-        <AddTodo add={this.add} />
+        <BrowserRouter>
+          <Navbar />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/todo" component={Todo} />
+        </BrowserRouter>
       </div>
     );
   }
